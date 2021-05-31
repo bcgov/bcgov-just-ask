@@ -1,6 +1,8 @@
 name: On Deployment Created
-on: 
-
+on:
+  push:
+    branches:
+      - main
 jobs:
   deploy:
     name: Deploy Just ask
