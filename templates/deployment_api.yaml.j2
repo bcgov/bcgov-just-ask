@@ -2,32 +2,32 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: {{ api.name }}
-    app.kubernetes.io/part-of: {{ app_name }}
-    group: {{ app_name }}
-  name: {{ api.name }}
+    app: "{{ api.name }}"
+    app.kubernetes.io/part-of: "{{ app_name }}"
+    group: "{{ app_name }}"
+  name: "{{ api.name }}"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ api.name }}
+      app: "{{ api.name }}"
   strategy: {}
   template:
     metadata:
       labels:
-        app: {{ api.name }}
+        app: "{{ api.name }}"
     spec:
       volumes:
       - name: github-private-key
         secret: 
-          secretName: {{api.name}}-private-key
+          secretName: "{{api.name}}-private-key"
       - name: app-config
         configMap: 
-          name: {{ api.name }}-config
+          app: "{{ api.name }}-config"
       containers:
-      - image: {{ api.image_registry}}/{{ api.image_name }}:{{ api.image_tag }}
+      - image: "{{ api.image_registry}}/{{ api.image_name }}:{{ api.image_tag }}"
         imagePullPolicy: IfNotPresent
-        name: {{ api.name }}
+        name: "{{ api.name }}"
         volumeMounts:
           - name: github-private-key
             mountPath: /var/opt/config/private-key/github-private-key.pem
@@ -44,20 +44,20 @@ spec:
           - name: MONGO_USER
             valueFrom:
               secretKeyRef:
-                name: {{ db.name }}
+                name: "{{ db.name }}"
                 key: database-user
           - name: MONGO_DATABASE
             valueFrom:
               secretKeyRef:
-                name: {{ db.name }}
+                name: "{{ db.name }}"
                 key: database-name
           - name: MONGO_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ db.name }}
+                name: "{{ db.name }}"
                 key: database-password
           - name: MONGO_HOST
-            value: {{ db.name }}
+            value: "{{ db.name }}"
           - name: MONGO_URL
             value: mongodb://$(MONGO_USER):$(MONGO_PASSWORD)@$(MONGO_HOST)/$(MONGO_DATABASE)
           - name: LOG_TIME
@@ -66,6 +66,6 @@ spec:
             value: https://{{web.name}}-{{ namespace }}.apps.silver.devops.gov.bc.ca
         envFrom:
           - secretRef:
-              name: {{ api.name }}-client-credentials
+              name: "{{ api.name }}-client-credentials"
         resources: {}
 status: {}

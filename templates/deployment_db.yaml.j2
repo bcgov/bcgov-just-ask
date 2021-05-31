@@ -4,8 +4,8 @@ metadata:
   creationTimestamp: null
   labels:
     app: {{ db.name }}
-    app.kubernetes.io/part-of: {{ app_name }}
-    group: {{ app_name }}
+    app.kubernetes.io/part-of: "{{ app_name }}"
+    group: "{{ app_name }}"
   name: {{ db.name }}
 spec:
   replicas: 1
@@ -18,17 +18,17 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app: {{ db.name }}
+        app: "{{ db.name }}"
     spec:
       containers:
       volumes:
-        - name: {{ db.name }}-data
+        - name: "{{ db.name }}-data"
           persistentVolumeClaim:
-            claimName: {{ db.pvc_name }}
+            claimName: "{{ db.pvc_name }}"
       containers:
       - resources:
           limits:
-            memory: {{ db.memory_limits }}
+            memory: "{{ db.memory_limits }}"
         readinessProbe:
           exec:
             command:
@@ -56,22 +56,22 @@ spec:
           - name: MONGODB_USER
             valueFrom:
               secretKeyRef:
-                name: {{ db.name }}
+                name: "{{ db.name }}"
                 key: database-user
           - name: MONGODB_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ db.name }}
+                name: "{{ db.name }}"
                 key: database-password
           - name: MONGODB_ADMIN_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ db.name }}
+                name: "{{ db.name }}"
                 key: database-admin-password
           - name: MONGODB_DATABASE
             valueFrom:
               secretKeyRef:
-                name: {{ db.name }}
+                name: "{{ db.name }}"
                 key: database-name
         securityContext:
           capabilities: {}
@@ -84,5 +84,5 @@ spec:
           - name: just-ask-db-data
             mountPath: /var/lib/mongodb/data
         terminationMessagePolicy: File
-        image: {{ db.image_registry }}/{{ db.image_name }}:{{ db.image_tag }}
+        image: "{{ db.image_registry }}/{{ db.image_name }}:{{ db.image_tag }}"
 status: {}

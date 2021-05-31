@@ -3,16 +3,16 @@ kind: Route
 metadata:
   creationTimestamp: null
   labels:
-    app: {{ web.name }}
-    group: {{ app_name }}
-  name: {{ web.name }}
+    app: "{{ web.name }}"
+    group: "{{ app_name }}"
+  name: "{{ web.name }}"
 spec:
   # host defaults to <name>.<namespace>.apps.silver.gov.bc.ca
   port:
     targetPort: 3001-3001
   to:
     kind: ""
-    name: {{ web.name }}
+    name: "{{ web.name }}"
     weight: null
   tls:
     termination: Edge

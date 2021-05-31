@@ -12,7 +12,7 @@ stringData:
     }
 kind: ConfigMap
 metadata:
-  name: {{ web.name }}-config
+  name: "{{ web.name }}-config"
   labels:
-    app: {{ web.name }}
-    group: {{ app_name }}
+    app: "{{ web.name }}"
+    group: "{{ app_name }}"

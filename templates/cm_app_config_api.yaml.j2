@@ -38,7 +38,7 @@ data:
     }
 kind: ConfigMap
 metadata:
-  name: {{ api.name }}-config
+  name: "{{ api.name }}-config"
   labels:
-    app: {{ api.name }}
-    group: {{ app_name }}
+    app: "{{ api.name }}"
+    group: "{{ app_name }}"

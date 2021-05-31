@@ -3,28 +3,28 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: {{ web.name }}
-    app.kubernetes.io/part-of: {{ app_name }}
-    group: {{ app_name }}
-  name: {{ web.name }}
+    app: "{{ web.name }}"
+    app.kubernetes.io/part-of: "{{ app_name }}"
+    group: "{{ app_name }}"
+  name: "{{ web.name }}"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ web.name }}
+      app: "{{ web.name }}"
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: {{ web.name }}
+        app: "{{ web.name }}"
     spec:
       volumes:
       - name: app-config
         configMap: 
-          name: {{ web.name }}-config
+          name: "{{ web.name }}-config"
       containers:
-      - image: {{ web.image_registry }}/{{ web.image_name }}:{{ web.image_tag }}
+      - image: "{{ web.image_registry }}/{{ web.image_name }}:{{ web.image_tag }}"
         name: just-ask
         imagePullPolicy: IfNotPresent
         volumeMounts:
@@ -32,7 +32,7 @@ spec:
             mountPath: /opt/app-root/www/public/config
         env:
           - name: CLIENT_ID
-            value: {{ CLIENT_ID }}
+            value: "{{ CLIENT_ID }}"
           - name: API_BASE_URL
             value: https://{{ api.name }}-{{ namespace }}.apps.silver.devops.gov.bc.ca
         resources: {}

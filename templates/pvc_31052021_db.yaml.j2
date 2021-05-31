@@ -1,15 +1,15 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ db.pvc_name }}
+  name: "{{ db.pvc_name }}"
   labels:
-    app: {{ db.name }}
-    group: {{ app_name }}
+    app: "{{ db.name }}"
+    group: "{{ app_name }}"
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: {{ db.pvc_storage_size }}
-  storageClassName: {{ db.pvc_storage_class }}
+      storage: "{{ db.pvc_storage_size }}"
+  storageClassName: "{{ db.pvc_storage_class }}"
   volumeMode: Filesystem

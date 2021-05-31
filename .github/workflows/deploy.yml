@@ -1,0 +1,37 @@
+name: On Deployment Created
+on: 
+
+jobs:
+  deploy:
+    name: Deploy Just ask
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v1
+    
+      - name: Cluster Login
+        uses: redhat-developer/openshift-actions@v1.1
+        with:
+          openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
+          parameters: '{"apitoken": "${{ secrets.OPENSHIFT_SA_PASSWORD }}"}'
+          cmd: |
+            'version'
+
+      - name: Run Playbook
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          APP_ID: ${{ secrets.APP_ID }}
+          DB_ADMIN_PASSWORD: ${{ secrets.DB_ADMIN_PASSWORD }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+        run: |-
+          ansible-playbook deploy.yaml -e PRIVATE_KEY=$(PRIVATE_KEY) \
+          -e CLIENT_ID=$(CLIENT_ID) \
+          -e CLIENT_SECRET=$(CLIENT_SECRET) \
+          -e APP_ID=$(APP_ID) \
+          -e DB_ADMIN_PASSWORD=$(DB_ADMIN_PASSWORD) \
+          -e DB_PASSWORD=$(DB_PASSWORD) \
+          -e DB_NAME=$(DB_NAME) \
+          -e DB_USER=$(DB_USER)

@@ -2,9 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: {{ api.name }}
-    group: {{ app_name }}
-  name: {{ api.name }}
+    app: "{{ api.name }}"
+    group: "{{ app_name }}"
+  name: "{{ api.name }}"
 spec:
   ports:
   - name: 3001-3001
@@ -12,6 +12,6 @@ spec:
     protocol: TCP
     targetPort: {{ api.port }}
   selector:
-    app: {{ api.name }}
+    app: "{{ api.name }}"
   type: ClusterIP
 status: {}
