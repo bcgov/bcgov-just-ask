@@ -1,0 +1,65 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ app_name }}
+  labels:
+    app: {{ app_name }}
+  namespace: {{ namespace }}
+---
+apiVersion: authorization.openshift.io/v1
+kind: Role
+metadata:
+  name: {{ app_name }}-deployer
+  labels:
+    app: {{ app_name }}
+    group: {{ app_name }}
+  namespace: {{ namespace }}
+rules:
+  - apiGroups:
+      - ""
+    attributeRestrictions: null
+    resources:
+      - configmaps
+      - services
+      - secrets
+      - persistentvolumeclaims
+    verbs:
+      - patch
+      - create
+  - apiGroups:
+      - "route.openshift.io"
+    attributeRestrictions: null
+    resources:
+      - routes
+    verbs:
+      - create
+      - patch
+  - apiGroups:
+      - "apps"
+    attributeRestrictions: null
+    resources:
+      - deployments
+    verbs:
+      - create
+      - patch
+---
+apiVersion: authorization.openshift.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ app_name }}-deployer
+  labels:
+    app: {{ app_name }}
+  namespace: {{ namespace }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ app_name }}
+    namespace: {{ namespace }}}
+roleRef:
+  kind: Role
+  name: {{ app_name }}-deployer
+  namespace: {{ namespace }}
+  apiGroup: authorization.openshift.io
+
+
+  

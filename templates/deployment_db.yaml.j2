@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: {{ db.name }}
+    app.kubernetes.io/part-of: {{ app_name }}
+    group: {{ app_name }}
+  name: {{ db.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ db.name }}
+  strategy: 
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ db.name }}
+    spec:
+      containers:
+      volumes:
+        - name: {{ db.name }}-data
+          persistentVolumeClaim:
+            claimName: {{ db.pvc_name }}
+      containers:
+      - resources:
+          limits:
+            memory: {{ db.memory_limits }}
+        readinessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - '-c'
+              - >-
+                mongo 127.0.0.1:27017/$MONGODB_DATABASE -u $MONGODB_USER -p
+                $MONGODB_PASSWORD --eval="quit()" 
+          initialDelaySeconds: 3
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        terminationMessagePath: /dev/termination-log
+        name: mongodb
+        livenessProbe:
+          tcpSocket:
+            port: 27017
+          initialDelaySeconds: 30
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        env:
+          - name: MONGODB_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ db.name }}
+                key: database-user
+          - name: MONGODB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ db.name }}
+                key: database-password
+          - name: MONGODB_ADMIN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ db.name }}
+                key: database-admin-password
+          - name: MONGODB_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: {{ db.name }}
+                key: database-name
+        securityContext:
+          capabilities: {}
+          privileged: false
+        ports:
+          - containerPort: 27017
+            protocol: TCP
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - name: just-ask-db-data
+            mountPath: /var/lib/mongodb/data
+        terminationMessagePolicy: File
+        image: {{ db.image_registry }}/{{ db.image_name }}:{{ db.image_tag }}
+status: {}

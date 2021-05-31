@@ -1,0 +1,20 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  creationTimestamp: null
+  labels:
+    app: {{ api.name }}
+    group: {{ app_name }}
+  name: {{ api.name }}
+spec:
+  # host defaults to <name>.<namespace>.apps.silver.gov.bc.ca
+  port:
+    targetPort: 3001-3001
+  to:
+    kind: ""
+    name: {{ api.name }}
+    weight: null
+  tls:
+    termination: Edge
+    insecureEdgeTerminationPolicy: Redirect
+status: {}

@@ -1,0 +1,13 @@
+---
+- name: Generate manifests
+  template:
+    src: "templates/sa.yaml.j2"
+    dest: "sa.yaml"
+  
+- name: Apply Manifests
+  shell: oc apply -f sa.yaml -n {{ namespace }}
+
+- name: delete manifest
+  ansible.builtin.file:
+    path: sa.yaml
+    state: absent

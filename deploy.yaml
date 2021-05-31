@@ -1,0 +1,9 @@
+---
+- name: Generate Manifests
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+  tasks:
+    - name: just-ask - generate manifests and deploy
+      include_tasks: ./tasks/main.yaml

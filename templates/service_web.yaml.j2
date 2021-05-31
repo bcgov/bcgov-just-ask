@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: {{ web.name }}
+    group: {{ app_name }}
+  name: {{ web.name }}
+spec:
+  ports:
+  - name: 2015-2015
+    port: {{ web.port }}
+    protocol: TCP
+    targetPort: {{ web.port }}
+  selector:
+    app: {{ web.name }}
+  type: ClusterIP
+status: {}

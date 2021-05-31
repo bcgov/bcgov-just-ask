@@ -1,0 +1,44 @@
+apiVersion: v1
+data: 
+  config.json: |-
+    {
+      "orgs": [
+        "bcgov",
+        "bcdevops"
+      ],
+      "primaryOrg": "bcdevops"
+    }
+  role-mappers.json: |-
+    {
+      "APPROVER": [
+        {
+          "kind": "OrgRole",
+          "role": "admin",
+          "organization": "bcdevops"
+        },
+        {
+          "kind": "OrgRole",
+          "role": "admin",
+          "organization": "bcgov"
+        }
+      ],
+      "REQUESTER": [null],
+      "COLLABORATOR": [
+        {
+          "kind": "OrgRole",
+          "role": "member",
+          "organization": "bcgov"
+        },
+        {
+          "kind": "OrgRole",
+          "role": "member",
+          "organization": "bcdevops"
+        }
+      ]
+    }
+kind: ConfigMap
+metadata:
+  name: {{ api.name }}-config
+  labels:
+    app: {{ api.name }}
+    group: {{ app_name }}

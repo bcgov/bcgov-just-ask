@@ -1,0 +1,42 @@
+---
+- name: Create output directory if it does not exist
+  file:
+    path: "{{ output_path }}/just-ask"
+    state: directory
+    mode: '0755'
+
+- name: Generate manifests
+  template:
+    src: "templates/{{ item }}.j2"
+    dest: "{{ output_path }}/just-ask/{{ item }}"
+  with_items:
+    - cm_app_config_api.yaml
+    - deployment_web.yaml
+    - secret_db.yaml
+    - service_web.yaml
+    - cm_app_config_web.yaml
+    - pvc_31052021_db.yaml
+    - secret_gh_app_creds_api.yaml
+    - deployment_api.yaml
+    - route_api.yaml
+    - secret_gh_key_api.yaml
+    - deployment_db.yaml
+    - route_web.yaml
+    - service_api.yaml
+
+- name: Apply Manifests
+  shell: oc apply -f {{ output_path }}/just-ask/{{ item }} -n {{ namespace }}
+  with_items:
+    - cm_app_config_api.yaml
+    - deployment_web.yaml
+    - secret_db.yaml
+    - service_web.yaml
+    - cm_app_config_web.yaml
+    - pvc_31052021_db.yaml
+    - secret_gh_app_creds_api.yaml
+    - deployment_api.yaml
+    - route_api.yaml
+    - secret_gh_key_api.yaml
+    - deployment_db.yaml
+    - route_web.yaml
+    - service_api.yaml
