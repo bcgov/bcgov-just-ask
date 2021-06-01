@@ -27,6 +27,7 @@ rules:
     verbs:
       - patch
       - create
+      - get
   - apiGroups:
       - "route.openshift.io"
     attributeRestrictions: null
@@ -35,6 +36,7 @@ rules:
     verbs:
       - create
       - patch
+      - get
   - apiGroups:
       - "apps"
     attributeRestrictions: null
@@ -43,6 +45,7 @@ rules:
     verbs:
       - create
       - patch
+      - get
 ---
 apiVersion: authorization.openshift.io/v1
 kind: RoleBinding
@@ -54,7 +57,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: "{{ app_name }}"
-    namespace: "{{ namespace }}"}
+    namespace: "{{ namespace }}"
 roleRef:
   kind: Role
   name: "{{ app_name }}-deployer"
