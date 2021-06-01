@@ -30,8 +30,9 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_NAME: ${{ secrets.DB_NAME }}
           DB_USER: ${{ secrets.DB_USER }}
-        run: >-
-          echo $PRIVATE_KEY > $OUTPUT_PATH/github-private-key.pem && 
+        run: 
+          -  echo $PRIVATE_KEY > $OUTPUT_PATH/github-private-key.pem && 
+          - >-
           ansible-playbook -i inventory/silver deploy.yaml
           -e CLIENT_ID=$CLIENT_ID
           -e CLIENT_SECRET=$CLIENT_SECRET
