@@ -22,7 +22,9 @@ jobs:
       - name: Load key
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-        run: echo $PRIVATE_KEY > $OUTPUT_PATH/github-private-key.pem
+        run: |
+          touch $OUTPUT_PATH/github-private-key.pem
+          echo $PRIVATE_KEY > $OUTPUT_PATH/github-private-key.pem
       - name: Run Playbook
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
