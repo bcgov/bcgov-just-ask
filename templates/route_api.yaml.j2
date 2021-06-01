@@ -9,7 +9,7 @@ metadata:
 spec:
   # host defaults to <name>.<namespace>.apps.silver.gov.bc.ca
   port:
-    targetPort: 3001-3001
+    targetPort: "{{ api.port}}-{{ api.port}}"
   to:
     kind: ""
     name: "{{ api.name }}"

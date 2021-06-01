@@ -7,7 +7,7 @@ metadata:
   name: "{{ api.name }}"
 spec:
   ports:
-  - name: 3001-3001
+  - name: {{ api.port }}-{{ api.port }}
     port: {{ api.port }}
     protocol: TCP
     targetPort: {{ api.port }}
