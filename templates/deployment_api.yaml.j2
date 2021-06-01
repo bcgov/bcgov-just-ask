@@ -23,7 +23,7 @@ spec:
           secretName: "{{api.name}}-private-key"
       - name: app-config
         configMap: 
-          app: "{{ api.name }}-config"
+          name: "{{ api.name }}-config"
       containers:
       - image: "{{ api.image_registry}}/{{ api.image_name }}:{{ api.image_tag }}"
         imagePullPolicy: IfNotPresent
