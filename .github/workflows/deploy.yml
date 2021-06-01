@@ -33,12 +33,12 @@ jobs:
         run: 
           -  echo $PRIVATE_KEY > $OUTPUT_PATH/github-private-key.pem
           - >-
-          ansible-playbook -i inventory/silver deploy.yaml
-          -e CLIENT_ID=$CLIENT_ID
-          -e CLIENT_SECRET=$CLIENT_SECRET
-          -e APP_ID=$APP_ID
-          -e DB_ADMIN_PASSWORD=$DB_ADMIN_PASSWORD
-          -e DB_PASSWORD=$DB_PASSWORD
-          -e DB_NAME=$DB_NAME
-          -e DB_USER=$DB_USER
-          -e output_path=$OUTPUT_PATH
+            ansible-playbook -i inventory/silver deploy.yaml
+            -e CLIENT_ID=$CLIENT_ID
+            -e CLIENT_SECRET=$CLIENT_SECRET
+            -e APP_ID=$APP_ID
+            -e DB_ADMIN_PASSWORD=$DB_ADMIN_PASSWORD
+            -e DB_PASSWORD=$DB_PASSWORD
+            -e DB_NAME=$DB_NAME
+            -e DB_USER=$DB_USER
+            -e output_path=$OUTPUT_PATH
