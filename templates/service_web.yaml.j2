@@ -7,7 +7,7 @@ metadata:
   name: {{ web.name }}
 spec:
   ports:
-  - name: 2015-2015
+  - name: {{ web.port }}-{{ web.port }}
     port: {{ web.port }}
     protocol: TCP
     targetPort: {{ web.port }}
