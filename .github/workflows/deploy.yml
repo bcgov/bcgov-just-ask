@@ -29,11 +29,12 @@ jobs:
           DB_NAME: ${{ secrets.DB_NAME }}
           DB_USER: ${{ secrets.DB_USER }}
         run: >-
-          ansible-playbook -e PRIVATE_KEY=$(PRIVATE_KEY)
+          ansible-playbook deploy.yaml 
+          -e PRIVATE_KEY=$(PRIVATE_KEY)
           -e CLIENT_ID=$(CLIENT_ID)
           -e CLIENT_SECRET=$(CLIENT_SECRET)
           -e APP_ID=$(APP_ID)
           -e DB_ADMIN_PASSWORD=$(DB_ADMIN_PASSWORD)
           -e DB_PASSWORD=$(DB_PASSWORD)
           -e DB_NAME=$(DB_NAME)
-          -e DB_USER=$(DB_USER) deploy.yaml
+          -e DB_USER=$(DB_USER) 
