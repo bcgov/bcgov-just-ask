@@ -24,7 +24,7 @@ jobs:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
         run: |
           mkdir $OUTPUT_PATH
-          echo $PRIVATE_KEY > $OUTPUT_PATH/github-private-key.pem
+          echo $PRIVATE_KEY | base64 > $OUTPUT_PATH/github-private-key.pem
       - name: Run Playbook
         env:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
