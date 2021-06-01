@@ -34,7 +34,9 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_NAME: ${{ secrets.DB_NAME }}
           DB_USER: ${{ secrets.DB_USER }}
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
         run: >-
+          ENCODED_KEY=$(echo $PRIVATE_KEY | base64) &&
           ansible-playbook -i inventory/silver deploy.yaml
           -e CLIENT_ID=$CLIENT_ID
           -e CLIENT_SECRET=$CLIENT_SECRET
@@ -43,4 +45,5 @@ jobs:
           -e DB_PASSWORD=$DB_PASSWORD
           -e DB_NAME=$DB_NAME
           -e DB_USER=$DB_USER
+          -e PRIVATE_KEY=$ENCODED_KEY
           -e output_path=$OUTPUT_PATH
