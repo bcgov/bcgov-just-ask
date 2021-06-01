@@ -45,5 +45,5 @@ jobs:
           -e DB_PASSWORD=$DB_PASSWORD
           -e DB_NAME=$DB_NAME
           -e DB_USER=$DB_USER
-          -e PRIVATE_KEY=$ENCODED_KEY
+          -e "PRIVATE_KEY=$ENCODED_KEY"
           -e output_path=$OUTPUT_PATH
