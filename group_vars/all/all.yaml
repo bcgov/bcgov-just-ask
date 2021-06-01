@@ -11,7 +11,7 @@ web:
   image_name: wazzacky/just-ask-web
   image_tag: '1.0.0'
   image_registry: 'docker.io'
-  port: "2019"
+  port: "2015"
 db:
   name: just-ask-db
   pvc_name: just-ask-db-pvc-31052021
