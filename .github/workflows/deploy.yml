@@ -19,25 +19,27 @@ jobs:
           parameters: '{"apitoken": "${{ secrets.OPENSHIFT_SA_PASSWORD }}"}'
           cmd: |
             'version'
-      - name: load key
-        run: echo $PRIVATE_KEY 
-      # - name: Run Playbook
-      #   env:
-      #     PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-      #     CLIENT_ID: ${{ secrets.CLIENT_ID }}
-      #     CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-      #     APP_ID: ${{ secrets.APP_ID }}
-      #     DB_ADMIN_PASSWORD: ${{ secrets.DB_ADMIN_PASSWORD }}
-      #     DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-      #     DB_NAME: ${{ secrets.DB_NAME }}
-      #     DB_USER: ${{ secrets.DB_USER }}
-      #   run: >-
-      #     ansible-playbook -i inventory/silver deploy.yaml
-      #     -e CLIENT_ID=$CLIENT_ID
-      #     -e CLIENT_SECRET=$CLIENT_SECRET
-      #     -e APP_ID=$APP_ID
-      #     -e DB_ADMIN_PASSWORD=$DB_ADMIN_PASSWORD
-      #     -e DB_PASSWORD=$DB_PASSWORD
-      #     -e DB_NAME=$DB_NAME
-      #     -e DB_USER=$DB_USER
-      #     -e output_path=$OUTPUT_PATH
+      - name: Load key
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+        run: echo $PRIVATE_KEY > $OUTPUT_PATH/github-private-key.pem
+      - name: Run Playbook
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          APP_ID: ${{ secrets.APP_ID }}
+          DB_ADMIN_PASSWORD: ${{ secrets.DB_ADMIN_PASSWORD }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+        run: >-
+          ansible-playbook -i inventory/silver deploy.yaml
+          -e CLIENT_ID=$CLIENT_ID
+          -e CLIENT_SECRET=$CLIENT_SECRET
+          -e APP_ID=$APP_ID
+          -e DB_ADMIN_PASSWORD=$DB_ADMIN_PASSWORD
+          -e DB_PASSWORD=$DB_PASSWORD
+          -e DB_NAME=$DB_NAME
+          -e DB_USER=$DB_USER
+          -e output_path=$OUTPUT_PATH
