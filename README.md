@@ -17,7 +17,7 @@ This app is managed by github actions. On Merge to main, an action will redeploy
 
 There are several secrets you will need to grab from the Github App that has been installed on Github. Things like the __private key__, __client secret__, __client id__, and __app_id__. Obtain those and store as github secret as such:
 
-- PRIVATE_KEY: github app private key (.pem file)
+- PRIVATE_KEY: github app private key (.pem file) __base64 encode the contents before saving__
 - CLIENT_ID: github app client id
 - CLIENT_SECRET: github app client secret
 - APP_ID: github app app id
