@@ -23,7 +23,7 @@ jobs:
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
         run: |
-          touch $OUTPUT_PATH/github-private-key.pem
+          mkdir $OUTPUT_PATH
           echo $PRIVATE_KEY > $OUTPUT_PATH/github-private-key.pem
       - name: Run Playbook
         env:
