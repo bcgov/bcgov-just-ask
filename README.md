@@ -1,4 +1,7 @@
-# bcgov-just-ask
+
+# bcgov-just-ask 
+[![Lifecycle:Stable](https://img.shields.io/badge/Lifecycle-Stable-97ca00)](https://github.com/bcgov/bcgov-just-ask/)
+
 
 This is the infrastructure code for a just-ask deployment to manage github org membership into bcgov/bcdevops
 
