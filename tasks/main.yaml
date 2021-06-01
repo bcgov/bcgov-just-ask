@@ -4,7 +4,6 @@
     path: "{{ output_path }}/just-ask"
     state: directory
     mode: '0755'
-
 - name: Generate manifests
   template:
     src: "templates/{{ item }}.j2"

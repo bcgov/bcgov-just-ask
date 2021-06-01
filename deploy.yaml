@@ -4,6 +4,7 @@
   connection: local
   gather_facts: no
   vars:
+    PRIVATE_KEY: "{{ lookup('file', output_path + '/github-private-key.pem')"
   tasks:
     - name: just-ask - generate manifests and deploy
       include_tasks: ./tasks/main.yaml
