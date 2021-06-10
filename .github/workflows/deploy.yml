@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - test
 env:
   OUTPUT_PATH: ${{ github.workspace }}/temp
 jobs:
@@ -19,6 +20,23 @@ jobs:
           parameters: '{"apitoken": "${{ secrets.OPENSHIFT_SA_PASSWORD }}"}'
           cmd: |
             'version'
+      - uses: fabasoad/yaml-json-xml-converter-action@main
+        id: yaml2xml
+        with:
+          path: 'group_vars/all/all.yaml'
+          from: 'yaml'
+          to: 'json'
+      - name: Set deploy namespace
+        id: set_deploy_namespace
+        env:
+          REF: ${{ github.ref }}
+        run: |
+           if [ $REF == 'refs/heads/main' ]
+           then
+              echo "::set-output name=namespace::${{fromJSON(steps.yaml2xml.outputs.data)['namespace']}}"
+            else
+              echo "::set-output name=namespace::${{fromJSON(steps.yaml2xml.outputs.data)['test_namespace']}}"
+            fi
       - name: Load key
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
@@ -34,6 +52,7 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_NAME: ${{ secrets.DB_NAME }}
           DB_USER: ${{ secrets.DB_USER }}
+          NAMESPACE: ${{ steps.set_deploy_namespace.outputs.namespace }}
         run: >-
           ansible-playbook -i inventory/silver deploy.yaml
           -e CLIENT_ID=$CLIENT_ID
@@ -44,3 +63,4 @@ jobs:
           -e DB_NAME=$DB_NAME
           -e DB_USER=$DB_USER
           -e output_path=$OUTPUT_PATH
+          -e namespace=$NAMESPACE
