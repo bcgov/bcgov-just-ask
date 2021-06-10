@@ -1,5 +1,6 @@
 app_name: just-ask
 namespace: bdec76-prod
+test_namespace: bdec76-test
 api:
   name: just-ask-api
   image_name: wazzacky/just-ask-api
