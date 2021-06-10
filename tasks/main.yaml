@@ -40,3 +40,4 @@
     - deployment_db.yaml
     - route_web.yaml
     - service_api.yaml
+    - service_db.yaml
