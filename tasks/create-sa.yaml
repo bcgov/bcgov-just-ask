@@ -2,12 +2,19 @@
 - name: Generate manifests
   template:
     src: "templates/sa.yaml.j2"
-    dest: "sa.yaml"
-  
+    dest: "sa-{{ item }}.yaml"
+  with_items:
+    - "{{ namespace }}"
+    - "{{ test_namespace }}"
 - name: Apply Manifests
-  shell: oc apply -f sa.yaml -n {{ namespace }}
-
+  shell: oc apply -f sa-{{ item }}.yaml
+  with_items:
+    - "{{ namespace }}"
+    - "{{ test_namespace }}"
 - name: delete manifest
   ansible.builtin.file:
-    path: sa.yaml
+    path: sa-{{ item }}.yaml
     state: absent
+  with_items:
+    - "{{ namespace }}"
+    - "{{ test_namespace }}"

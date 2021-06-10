@@ -5,7 +5,7 @@ metadata:
   name: "{{ app_name }}"
   labels:
     app: "{{ app_name }}"
-  namespace: "{{ namespace }}"
+  namespace: "{{ item }}"
 ---
 apiVersion: authorization.openshift.io/v1
 kind: Role
@@ -14,7 +14,7 @@ metadata:
   labels:
     app: "{{ app_name }}"
     group: "{{ app_name }}"
-  namespace: "{{ namespace }}"
+  namespace: "{{ item }}"
 rules:
   - apiGroups:
       - ""
@@ -53,15 +53,15 @@ metadata:
   name: "{{ app_name }}-deployer"
   labels:
     app: "{{ app_name }}"
-  namespace: "{{ namespace }}"
+  namespace: "{{ item }}"
 subjects:
   - kind: ServiceAccount
     name: "{{ app_name }}"
-    namespace: "{{ namespace }}"
+    namespace: "{{ item }}"
 roleRef:
   kind: Role
   name: "{{ app_name }}-deployer"
-  namespace: "{{ namespace }}"
+  namespace: "{{ item }}"
   apiGroup: authorization.openshift.io
 
 
