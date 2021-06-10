@@ -7,7 +7,10 @@ This is the infrastructure code for a [just-ask](https://justask.cloud) deployme
 
 ## How to Deploy
 
-This app is managed by github actions. On Merge to main, an action will redeploy the infrastructure code using an ansible playbook.
+This app is managed by github actions. On Merge to:
+
+- `main` an action will redeploy the infrastructure code using an ansible playbook to __production__.
+- `test` an action will redeploy the infrastructure code using an ansible playbook to __test__.
 
 ### Pre Requisites
 1. Login to Openshift
