@@ -22,6 +22,7 @@
     - deployment_db.yaml
     - route_web.yaml
     - service_api.yaml
+    - service_db.yaml
 
 - name: Apply Manifests
   shell: oc apply -f {{ output_path }}/just-ask/{{ item }} -n {{ namespace }}
@@ -39,3 +40,4 @@
     - deployment_db.yaml
     - route_web.yaml
     - service_api.yaml
+    - service_db.yaml

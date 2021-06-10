@@ -11,6 +11,10 @@ data:
       "brandLogo": "https://www2.gov.bc.ca/StaticWebResources/static/gov3/images/gov_bc_logo.svg",
       "issuesLink": "https://github.com/bcgov/bcgov-just-ask/issues"
     }
+  config.json: |
+    {
+      "noIndividualOrgRequests": true
+    }
 kind: ConfigMap
 metadata:
   name: "{{ web.name }}-config"
