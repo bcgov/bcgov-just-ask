@@ -5,7 +5,7 @@ metadata:
   name: "{{ app_name }}"
   labels:
     app: "{{ app_name }}"
-  namespace: "{{ item }}"
+  namespace: "{{ namespace }}"
 ---
 apiVersion: authorization.openshift.io/v1
 kind: Role
@@ -57,7 +57,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: "{{ app_name }}"
-    namespace: "{{ item }}"
+    namespace: "{{ namespace }}"
 roleRef:
   kind: Role
   name: "{{ app_name }}-deployer"
