@@ -1,1 +1,4 @@
 **/*.pem
+**/cm_backup_conf.yaml
+backup_build.yaml
+backup_deploy.yaml

@@ -40,3 +40,21 @@ There are also secrets needed for the database.
 Make a PR and apply the 'merge when ready' label when everythings approved! The PR will auto merge and a github action will take care of the rest. 
 
 
+### Setting up DB Backups
+
+Database backups on OCP 4.x is done with the [`backup-container`](https://github.com/bcdevops/backup-container). Setup is straight forward. 
+
+1. Create the `backup.conf` configmap by running the `backup-container` playbook and then apply in the __prod namespace__
+2. As per the instructions for deploying backup container. Create a new build for the backup container in the __tools namespace__:
+
+```
+curl https://raw.githubusercontent.com/BCDevOps/backup-container/master/openshift/templates/backup/backup-build.yaml |
+oc process -f - -p NAME=just-ask-backup -p DOCKER_FILE_PATH=Dockerfile_Mongo -p OUTPUT_IMAGE_TAG=1.0.0 -p BASE_IMAGE_FOR_BUILD=registry.access.redhat.com/rhscl/mongodb-36-rhel7 | oc apply -f -
+```
+
+3. As per instructions, deploy the backup container by first modifying the templates env vars then applying in the __prod namespace__
+
+```
+
+curl https://raw.githubusercontent.com/BCDevOps/backup-container/master/openshift/templates/backup/backup-deploy.yaml | sed -e 's/DATABASE_USER$/JUST_ASK_DB_USER/; s/DATABASE_PASSWORD$/JUST_ASK_DB_PASSWORD/' | oc process -f - -p NAME=just-ask-backup -p SOURCE_IMAGE_NAME=just-ask-backup -p APP_NAME=just-ask -p CPU_LIMIT=1000m -p MEMORY_LIMIT=1Gi -p NAMESPACE_NAME=<prod namespace> -p CPU_REQUEST=300m -p MEMORY_REQUEST=500Mi -p ENVIRONMENT_NAME=prod -p IMAGE_NAMESPACE=<tools namespace> -p TAG_NAME=1.0.0 -p DATABASE_DEPLOYMENT_NAME=just-ask-db | oc apply -f -
+```
