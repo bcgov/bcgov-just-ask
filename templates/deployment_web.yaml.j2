@@ -29,7 +29,7 @@ spec:
         imagePullPolicy: IfNotPresent
         volumeMounts:
           - name: app-config
-            mountPath: /opt/app-root/www/public/config
+            mountPath: /opt/app-root/www/config
         env:
           - name: CLIENT_ID
             value: "{{ CLIENT_ID }}"
