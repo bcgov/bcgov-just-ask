@@ -26,7 +26,7 @@ spec:
           name: "{{ api.name }}-config"
       containers:
       - image: "{{ api.image_registry}}/{{ api.image_name }}:{{ api.image_tag }}"
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: "{{ api.name }}"
         volumeMounts:
           - name: github-private-key
