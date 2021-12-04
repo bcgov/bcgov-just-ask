@@ -9,6 +9,10 @@ api:
   image_tag: '1.1.106'
   image_registry: 'docker.io'
   port: "3001"
+  cpu_limit: 200m
+  cpu_request: 100m
+  memory_limit: 100Mi
+  memory_request: 250Mi
 web:
   name: just-ask-web
   image_name: wazzacky/just-ask-web
