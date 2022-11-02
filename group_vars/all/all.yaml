@@ -5,8 +5,8 @@ backup:
   name: just-ask-backup
 api:
   name: just-ask-api
-  image_name: plat-gen-docker-local/just-ask
-  image_tag: 'latest'
+  image_name: plat-gen-docker-local/just-ask-api
+  image_tag: '1.1.106'
   image_registry: 'artifacts.developer.gov.bc.ca'
   port: "3001"
   cpu_limit: 200m
@@ -15,8 +15,8 @@ api:
   memory_request: 250Mi
 web:
   name: just-ask-web
-  image_name: plat-gen-docker-local/just-ask-api
-  image_tag: 'latest'
+  image_name: plat-gen-docker-local/just-ask
+  image_tag: '1.1.106'
   image_registry: 'artifacts.developer.gov.bc.ca'
   port: "2015"
 db:
