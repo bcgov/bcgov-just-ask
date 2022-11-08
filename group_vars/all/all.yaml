@@ -16,8 +16,8 @@ api:
   memory_request: 250Mi
 web:
   name: just-ask-web
-  image_name: plat-gen-docker-local/just-ask
-  image_tag: '1.1.106'
+  image_name: plat-gen-docker-local/just-ask-web
+  image_tag: '1.1.104'
   image_registry: 'artifacts.developer.gov.bc.ca'
   artifact_id: 'qaacfs'
   port: "2015"
