@@ -6,7 +6,7 @@ backup:
 api:
   name: just-ask-api
   image_name: wazzacky/just-ask-api
-  image_tag: '1.1.106'
+  image_tag: '1.1.107'
   image_registry: 'docker.io'
   port: "3001"
 web:
