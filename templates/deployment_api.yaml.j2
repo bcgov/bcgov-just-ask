@@ -17,6 +17,8 @@ spec:
       labels:
         app: "{{ api.name }}"
     spec:
+      imagePullSecrets:
+        - name: "artifacts-default-{{api.artifact_id}}"
       volumes:
       - name: github-private-key
         secret: 

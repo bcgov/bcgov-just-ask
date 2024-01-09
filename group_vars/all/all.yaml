@@ -5,15 +5,21 @@ backup:
   name: just-ask-backup
 api:
   name: just-ask-api
-  image_name: wazzacky/just-ask-api
+  image_name: plat-gen-docker-local/just-ask-api
   image_tag: '1.1.107'
-  image_registry: 'docker.io'
+  image_registry: 'artifacts.developer.gov.bc.ca'
+  artifact_id: 'qaacfs'
   port: "3001"
+  cpu_limit: 200m
+  cpu_request: 100m
+  memory_limit: 100Mi
+  memory_request: 250Mi
 web:
   name: just-ask-web
-  image_name: wazzacky/just-ask-web
+  image_name: plat-gen-docker-local/just-ask-web
   image_tag: '1.1.104'
-  image_registry: 'docker.io'
+  image_registry: 'artifacts.developer.gov.bc.ca'
+  artifact_id: 'qaacfs'
   port: "2015"
 db:
   name: just-ask-db
