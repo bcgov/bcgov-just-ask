@@ -10,6 +10,8 @@ jobs:
   deploy:
     name: Deploy Just ask
     runs-on: ubuntu-20.04
+    environment: 
+      name: ${{ github.ref_name }}
     steps:
       - uses: actions/checkout@v1
     
