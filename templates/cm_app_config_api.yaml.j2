@@ -5,19 +5,13 @@ data:
   config.json: |-
     {
       "orgs": [
-        "bcgov",
-        "bcdevops"
+        "bcgov"
       ],
-      "primaryOrg": "bcdevops"
+      "primaryOrg": "bcgov"
     }
   role-mappers.json: |-
     {
       "APPROVER": [
-        {
-          "kind": "OrgRole",
-          "role": "admin",
-          "organization": "bcdevops"
-        },
         {
           "kind": "OrgRole",
           "role": "admin",
@@ -30,18 +24,13 @@ data:
           "kind": "OrgRole",
           "role": "member",
           "organization": "bcgov"
-        },
-        {
-          "kind": "OrgRole",
-          "role": "member",
-          "organization": "bcdevops"
         }
        ],
       "AUDITOR": [
         {
           "kind": "GithubTeam",
           "team": "platform-services-just-ask-auditors",
-          "organization": "bcdevops"
+          "organization": "bcgov"
         }
       ]
     }
