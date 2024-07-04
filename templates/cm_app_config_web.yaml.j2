@@ -9,36 +9,30 @@ data:
     {
       "brandTitle": "BC Gov Github Access Management",
       "brandLogo": "https://www2.gov.bc.ca/StaticWebResources/static/gov3/images/gov_bc_logo.svg",
-      "issuesLink": "https://github.com/bcgov/bcgov-just-ask/issues"
+      "issuesLink": "https://citz-do.atlassian.net/servicedesk/customer/portal/2"
     }
   config.json: |
     {
       "noIndividualOrgRequests": true
     }
   entry.md: |
-    # Add someone to the BC Government GitHub Org
-    This tool allows you to add yourself or someone else to the BC Government's [BCGov GitHub org](https://github.com/bcgov) and [BCDevOps org](https://github.com/bcdevops). 
-    People who belong to the org are able to create repos, submit pull requests, create issues, collaborate with other members and more. [See the full list of member privileges here](https://docs.github.com/en/organizations/managing-peoples-access-to-your-organization-with-roles/permission-levels-for-an-organization). 
+    JustAsk allows you to invite an employee or contractor working for the Province to join you in the BC Government's [BCGov GitHub organization](https://github.com/bcgov). This will allow them to create repos, submit pull requests, create issues, collaborate with other members and more. [See the full list of member privileges here.](https://docs.github.com/en/organizations/managing-peoples-access-to-your-organization-with-roles/permission-levels-for-an-organization) 
 
-    We’ll ask you to:
-    - Provide the GitHub ID of anyone you wish to add. If you don’t have a GitHub ID, you can [create one here](https://github.com) 
-    - Indicate whether this GitHub ID needs to be a part of BCGov or BCDevOps (you can join both if you wish). [Read about BC Government organizations in GitHub](https://beta-docs.developer.gov.bc.ca/bc-government-organizations-in-github/).
+    ## Before inviting someone, make sure they:
 
+    1. Have a GitHub ID. If you don’t already have a GitHub ID, they can [create one here](https://github.com/).  
+    1. Have an IDIR. Employees already have an IDIR, but contractors may need to get one. [Learn more about IDIR requirements on DevHub](https://developer.gov.bc.ca/docs/default/component/bc-developer-guide/use-github-in-bcgov/github-transition-guide/#compatible-idirs-for-contractors).
 
+    [Invite member]({% raw %}{{ login_link }}{% endraw %})
 
-    [Log In With Github]({% raw %}{{ login_link }}{% endraw %})
-    
-    
-    ## Who can join?
-    This is for anyone currently working on Government of BC digital products hosted on the private cloud OpenShift platform, including BC government employees and external contractors. You can submit a request for yourself, or on behalf of someone else. 
-
-    All self-registering requests require the approval of the Platform Director before they can be processed. If you are new to the platform and requesting on belahf of yourself, please contact Olena Mitovska, Platform Director and provide the details about the BC Gov's project that you will be working on. 
-
-    If you’re not currently part of a BC Government product team, your request may not be approved.
 
     ## What will happen next
 
-    When your request is approved, you’ll recieve an email with an invitation to join. If you have not received an invitation to join within 1-2 days, or if something goes wrong, you can post a message on rocketchat (#labops-requests) or follow up with the Platform Director.
+    * The invited user will receive an email with an invitation to join. 
+    * Once they accept the request, they will need to log in to GitHub, and then follow the quick and easy prompts to link their account to their IDIR. 
+    * Once their account is in the bcgov GitHub organization, you can invite them to join the repositories your team manages so they can make changes to that code. We recommend using [GitHub teams](https://docs.github.com/en/organizations/organizing-members-into-teams/about-teams) to make this quick and easy to do.
+    
+    If they have not received an invitation to join within 1-2 hours, or if something goes wrong, you can post a message on Rocket.Chat ([#github-news-and-support](https://chat.developer.gov.bc.ca/channel/github-news-and-support)) or [request support](https://citz-do.atlassian.net/servicedesk/customer/portal/2).
 kind: ConfigMap
 metadata:
   name: "{{ web.name }}-config"
