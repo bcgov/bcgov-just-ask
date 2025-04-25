@@ -10,9 +10,9 @@ jobs:
   deploy:
     name: Deploy Just ask
     runs-on: ubuntu-latest
-    # Assumes:
-    # - 2 environments: test and prod
+    # Assumes 2 environments, test and prod, with the following secrets:
     # - OC_NAMESPACE (Openshift Namespace) is set in the secrets for each environment
+    # - OC_TOKEN - pipeline-token-... from OC Workloads > Secrets
     environment: ${{ github.ref == 'refs/heads/main' && 'prod' || 'test' }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #4.2.2
