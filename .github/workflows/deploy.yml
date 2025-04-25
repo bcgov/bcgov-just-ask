@@ -21,7 +21,7 @@ jobs:
         with:
          oc_namespace: ${{ secrets.OC_NAMESPACE }}
          oc_server: ${{ vars.OC_SERVER }}
-         oc_token: ${{ secrets.OPENSHIFT_SA_PASSWORD }}
+         oc_token: ${{ secrets.OC_TOKEN }}
       - name: Run Playbook
         env:
           NAMESPACE: ${{ secrets.OC_NAMESPACE }}
