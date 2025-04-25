@@ -20,7 +20,7 @@ spec:
         app: "{{ web.name }}"
     spec:
       imagePullSecrets:
-        - name: "artifacts-default-{{api.artifact_id}}"
+        - name: "artifacts-default-{{web.artifact_id}}"
       volumes:
       - name: app-config
         configMap: 
