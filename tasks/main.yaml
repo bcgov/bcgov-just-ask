@@ -11,6 +11,7 @@
   with_items:
     - deployment_web.yaml
     - service_web.yaml
+    - cm_app_config_web.yaml
     - route_web.yaml
 
 - name: Apply Manifests
@@ -18,4 +19,5 @@
   with_items:
     - deployment_web.yaml
     - service_web.yaml
+    - cm_app_config_web.yaml
     - route_web.yaml
