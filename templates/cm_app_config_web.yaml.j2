@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ web.name }}-config"
+  labels:
+    app: "{{ web.name }}"
+    group: "{{ app_name }}"
