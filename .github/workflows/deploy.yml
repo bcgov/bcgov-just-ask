@@ -10,57 +10,22 @@ jobs:
   deploy:
     name: Deploy Just ask
     runs-on: ubuntu-latest
+    # Assumes 2 environments, test and prod, with the following secrets:
+    # - OC_NAMESPACE (Openshift Namespace) is set in the secrets for each environment
+    # - OC_TOKEN - pipeline-token-... from OC Workloads > Secrets
+    environment: ${{ github.ref == 'refs/heads/main' && 'prod' || 'test' }}
     steps:
-      - uses: actions/checkout@v1
-    
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #4.2.2
       - name: Cluster Login
-        uses: redhat-developer/openshift-actions@v1.1
+        uses: bcgov/action-oc-runner@5882b707c20135424f62202f80d56c1d243fd96c #v1.1.0
         with:
-          openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
-          parameters: '{"apitoken": "${{ secrets.OPENSHIFT_SA_PASSWORD }}"}'
-          cmd: |
-            'version'
-      - uses: fabasoad/yaml-json-xml-converter-action@main
-        id: yaml2xml
-        with:
-          path: 'group_vars/all/all.yaml'
-          from: 'yaml'
-          to: 'json'
-      - name: Set deploy namespace
-        id: set_deploy_namespace
-        env:
-          REF: ${{ github.ref }}
-        run: |
-           if [ $REF == 'refs/heads/main' ]
-           then
-              echo "::set-output name=namespace::${{fromJSON(steps.yaml2xml.outputs.data)['namespace']}}"
-            else
-              echo "::set-output name=namespace::${{fromJSON(steps.yaml2xml.outputs.data)['test_namespace']}}"
-            fi
-      - name: Load key
-        env:
-          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-        run: |
-          mkdir $OUTPUT_PATH
-          echo $PRIVATE_KEY > $OUTPUT_PATH/github-private-key.pem
+         oc_namespace: ${{ secrets.OC_NAMESPACE }}
+         oc_server: ${{ vars.OC_SERVER }}
+         oc_token: ${{ secrets.OC_TOKEN }}
       - name: Run Playbook
         env:
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-          APP_ID: ${{ secrets.APP_ID }}
-          DB_ADMIN_PASSWORD: ${{ secrets.DB_ADMIN_PASSWORD }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          DB_USER: ${{ secrets.DB_USER }}
-          NAMESPACE: ${{ steps.set_deploy_namespace.outputs.namespace }}
+          NAMESPACE: ${{ secrets.OC_NAMESPACE }}
         run: >-
           ansible-playbook -i inventory/silver deploy.yaml
-          -e CLIENT_ID=$CLIENT_ID
-          -e CLIENT_SECRET=$CLIENT_SECRET
-          -e APP_ID=$APP_ID
-          -e DB_ADMIN_PASSWORD=$DB_ADMIN_PASSWORD
-          -e DB_PASSWORD=$DB_PASSWORD
-          -e DB_NAME=$DB_NAME
-          -e DB_USER=$DB_USER
           -e output_path=$OUTPUT_PATH
           -e namespace=$NAMESPACE

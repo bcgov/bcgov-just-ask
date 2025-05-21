@@ -20,7 +20,7 @@ spec:
         app: "{{ web.name }}"
     spec:
       imagePullSecrets:
-        - name: "artifacts-default-{{api.artifact_id}}"
+        - name: "artifacts-default-{{web.artifact_id}}"
       volumes:
       - name: app-config
         configMap: 
@@ -32,10 +32,5 @@ spec:
         volumeMounts:
           - name: app-config
             mountPath: /opt/app-root/www/config
-        env:
-          - name: CLIENT_ID
-            value: "{{ CLIENT_ID }}"
-          - name: API_BASE_URL
-            value: https://{{ api.name }}-{{ namespace }}.apps.silver.devops.gov.bc.ca
         resources: {}
 status: {}

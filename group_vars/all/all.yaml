@@ -1,33 +1,8 @@
 app_name: just-ask
-namespace: bdec76-prod
-test_namespace: bdec76-test
-backup:
-  name: just-ask-backup
-api:
-  name: just-ask-api
-  image_name: plat-gen-docker-local/just-ask-api
-  image_tag: '1.1.107'
-  image_registry: 'artifacts.developer.gov.bc.ca'
-  artifact_id: 'qaacfs'
-  port: "3001"
-  cpu_limit: 200m
-  cpu_request: 100m
-  memory_limit: 100Mi
-  memory_request: 250Mi
 web:
   name: just-ask-web
   image_name: plat-gen-docker-local/just-ask-web
-  image_tag: '1.1.104'
+  image_tag: 'sha-60a0840'
   image_registry: 'artifacts.developer.gov.bc.ca'
   artifact_id: 'qaacfs'
   port: "2015"
-db:
-  name: just-ask-db
-  pvc_name: just-ask-db-pvc-31052021
-  pvc_storage_class: netapp-block-standard
-  pvc_storage_size: 2Gi
-  memory_limits: 512Mi
-  image_registry: image-registry.openshift-image-registry.svc:5000
-  image_name: openshift/mongodb
-  image_tag: "3.6"
-  port: "27017"
