@@ -1,4 +1,6 @@
 name: On Deployment Created
+permissions:
+  contents: read
 on:
   push:
     branches:
